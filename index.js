@@ -41,15 +41,15 @@ app.get('/api/room', (req, res) => {
 app.post('/api/room', (req, res) => {
     const { roomname, type_id, people, size, image } = req.body;
     const query = 'INSERT INTO room(roomname,type_id, people, size, image) values(?,?,?,?,?)';
-    connection.query(query, [roomname,type_id, people, size, image], (err, result) => {
+    connection.query(query, [roomname, type_id, people, size, image], (err, result) => {
         if (err) {
-          console.error('Lỗi truy vấn:', err);
-          res.status(500).json({ error: 'Lỗi truy vấn dữ liệu' });
+            console.error('Lỗi truy vấn:', err);
+            res.status(500).json({ error: 'Lỗi truy vấn dữ liệu' });
         } else {
-          const insertedId = result.insertId;
-          res.json({ message: 'Dữ liệu đã được thêm thành công', insertedId });
+            const insertedId = result.insertId;
+            res.json({ message: 'Dữ liệu đã được thêm thành công', insertedId });
         }
-      });
+    });
 })
 
 //typeroom
@@ -89,6 +89,20 @@ app.get('/api/customer', (req, res) => {
             res.json(results);
         }
     })
+})
+
+app.post('/api/customer', (req, res) => {
+    const { firstname, lastname, email, phone, city, request } = req.body;
+    const query = 'INSERT INTO customer(firstname, lastname, email, phone, city, request) values(?,?,?,?,?,?)';
+    connection.query(query, [firstname, lastname, email, phone, city, request], (err, result) => {
+        if (err) {
+            console.error('Lỗi truy vấn:', err);
+            res.status(500).json({ error: 'Lỗi truy vấn dữ liệu' });
+        } else {
+            const insertedId = result.insertId;
+            res.json({ message: 'Dữ liệu đã được thêm thành công', insertedId });
+        }
+    });
 })
 
 app.listen(port, () => {
